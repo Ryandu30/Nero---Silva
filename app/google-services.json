@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "164691027499",
+    "project_id": "nero-silva",
+    "storage_bucket": "nero-silva.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164691027499:android:dca54125a418938df1ec6e",
+        "android_client_info": {
+          "package_name": "com.example.nerosilva"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgSxUyKaRES3T7_RyPNlN7C48cE0mE2VM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Primary">#5C8D89</color>
+    <color name="Secondary">#74B49B</color>
+    <color name="Tertiary">#A7D7C5</color>
+    <color name="BaseLight">#F4F9F4</color>
+    <color name="BaseDark">#17181D</color>
+    <color name="StrokeOff">#5E6366</color>
+    <color name="StrokeOn">#00A0FF</color>
+    <color name="StrokeError">#FF5722</color>
+</resources>
