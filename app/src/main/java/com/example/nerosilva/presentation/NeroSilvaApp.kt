@@ -2,10 +2,7 @@ package com.example.nerosilva.presentation.nerosilvaapp
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Place
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -23,14 +20,10 @@ import androidx.navigation.compose.rememberNavController
 import com.example.nerosilva.R
 import com.example.nerosilva.navigation.NavigationItem
 import com.example.nerosilva.navigation.Screen
-import com.example.nerosilva.presentation.screen.chatbot.ChatbotPage
 import com.example.nerosilva.presentation.screen.farm.FarmPage
 import com.example.nerosilva.presentation.screen.home.HomePage
 import com.example.nerosilva.presentation.screen.login.component.LoginPage
-import com.example.nerosilva.presentation.screen.login.component.LoginScreen
-import com.example.nerosilva.presentation.screen.login.component.SigninPage
-import com.example.nerosilva.presentation.screen.marketplace.MarketplacePage
-import com.example.nerosilva.presentation.screen.seller.SellerPage
+import com.example.nerosilva.presentation.screen.login.LoginScreen
 
 @Composable
 fun NeroSilvaApp(
@@ -47,32 +40,16 @@ fun NeroSilvaApp(
             LoginScreen(modifier, navController = navController)
         }
 
-        composable("signinpage") {
-            SigninPage(modifier, navController = navController)
-        }
-
         composable(Screen.Login.route) {
             LoginPage(modifier, navController = navController)
         }
 
         composable(Screen.Home.route) {
-            HomePage(navController = navController)
+            HomePage(modifier, navController = navController)
         }
 
         composable(Screen.Farm.route) {
             FarmPage()
-        }
-
-        composable(Screen.Marketplace.route) {
-            MarketplacePage()
-        }
-
-        composable(Screen.Chatbot.route) {
-            ChatbotPage()
-        }
-
-        composable(Screen.Seller.route) {
-            SellerPage()
         }
     }
 }
@@ -98,21 +75,6 @@ private fun BottomBar(
                 title = stringResource(id = R.string.menu_farm),
                 icon = Icons.Default.DateRange,
                 screen = Screen.Farm
-            ),
-            NavigationItem(
-                title = stringResource(id = R.string.menu_marketplace),
-                icon = Icons.Default.ShoppingCart,
-                screen = Screen.Marketplace
-            ),
-            NavigationItem(
-                title = stringResource(R.string.menu_chatbot),
-                icon = Icons.Default.Email,
-                screen = Screen.Chatbot
-            ),
-            NavigationItem(
-                title = stringResource(R.string.menu_seller),
-                icon = Icons.Default.Place,
-                screen = Screen.Seller
             )
         )
         navigationItems.map { item ->

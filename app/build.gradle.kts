@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.example.nerosilva"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.nerosilva"
@@ -52,11 +52,6 @@ android {
     }
 }
 
-repositories {
-    google()
-    mavenCentral()
-}
-
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -67,9 +62,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.firebase.auth)
+    implementation(libs.androidx.compose.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,10 +74,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.androidx.navigation.compose)
-    implementation("com.google.ai.client.generativeai:generativeai:0.7.0")
-    implementation ("androidx.compose.material3:material3:1.3.1")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
-    implementation ("androidx.compose.ui:ui:1.7.5")
+
+    implementation(libs.generativeai)
+
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation (libs.androidx.lifecycle.viewmodel.compose)
 
     //hilt
     implementation("com.google.dagger:hilt-android:2.49")

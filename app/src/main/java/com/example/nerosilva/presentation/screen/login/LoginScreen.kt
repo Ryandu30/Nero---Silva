@@ -1,4 +1,4 @@
-package com.example.nerosilva.presentation.screen.login.component
+package com.example.nerosilva.presentation.screen.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -18,11 +18,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.example.nerosilva.R
 
 @Composable
-fun LoginScreen(modifier: Modifier, navController: NavHostController){
+fun LoginScreen(modifier: Modifier, navController: NavController){
     Column(
         modifier = Modifier
             .width(412.dp)
@@ -89,7 +89,7 @@ fun LoginScreen(modifier: Modifier, navController: NavHostController){
                     containerColor = Color(0xFF74B49A)
                 ),
                 onClick = {
-                    navController.navigate("signin")
+                    navController.navigate("login")
                 }
             ) {
 

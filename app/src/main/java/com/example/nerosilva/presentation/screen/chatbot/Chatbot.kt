@@ -138,9 +138,9 @@ fun MessageInput(onMessageSend : (String)-> Unit, modifier: Modifier = Modifier)
                 .height(56.dp)
                 .shadow(elevation = 64.dp, spotColor = Color(0x0F000000), ambientColor = Color(0x0F000000))
                 .background(color = Color(0x0D17181D), shape = RoundedCornerShape(size = 500.dp)),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color(0xFFF0F0F0),
+                unfocusedContainerColor = Color(0xFFF0F0F0),
             )
             ,
             value = message,

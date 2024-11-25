@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -37,12 +36,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.example.nerosilva.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SigninPage(modifier: Modifier, navController: NavHostController) {
+fun NeroSignPage(modifier: Modifier, navController: NavController) {
     var firstName by remember {
         mutableStateOf("") }
 
@@ -115,7 +113,7 @@ fun SigninPage(modifier: Modifier, navController: NavHostController) {
                 .padding(top = 260.dp, start = 16.dp, end = 16.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+        )  {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -155,10 +153,10 @@ fun SigninPage(modifier: Modifier, navController: NavHostController) {
                             .width(150.dp)
                             .height(46.dp),
                         shape = RoundedCornerShape(50),
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            focusedBorderColor = Color.Transparent,
-                            unfocusedBorderColor = Color.Transparent,
-                            containerColor = Color(0xFFF0F0F0)
+                        colors = TextFieldDefaults.colors(
+                            focusedContainerColor = Color(0xFFF0F0F0),
+                            unfocusedContainerColor = Color(0xFFF0F0F0),
+                            disabledContainerColor = Color(0xFFF0F0F0)
                         ),
                     )
                 }
@@ -179,10 +177,10 @@ fun SigninPage(modifier: Modifier, navController: NavHostController) {
                             .width(150.dp)
                             .height(46.dp),
                         shape = RoundedCornerShape(50),
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            focusedBorderColor = Color.Transparent,
-                            unfocusedBorderColor = Color.Transparent,
-                            containerColor = Color(0xFFF0F0F0)
+                        colors = TextFieldDefaults.colors(
+                            focusedContainerColor = Color(0xFFF0F0F0),
+                            unfocusedContainerColor = Color(0xFFF0F0F0),
+                            disabledContainerColor = Color(0xFFF0F0F0),
                         ),
                     )
                 }
@@ -206,10 +204,10 @@ fun SigninPage(modifier: Modifier, navController: NavHostController) {
                         .width(320.dp)
                         .height(46.dp),
                     shape = RoundedCornerShape(size = 90.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Transparent,
-                        unfocusedBorderColor = Color.Transparent,
-                        containerColor = Color(0xFFF0F0F0),
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color(0xFFF0F0F0),
+                        unfocusedContainerColor = Color(0xFFF0F0F0),
+                        disabledContainerColor = Color(0xFFF0F0F0),
                     ),
                 )
 
@@ -232,10 +230,10 @@ fun SigninPage(modifier: Modifier, navController: NavHostController) {
                         .width(320.dp)
                         .height(46.dp),
                     shape = RoundedCornerShape(size = 90.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Transparent,
-                        unfocusedBorderColor = Color.Transparent,
-                        containerColor = Color(0xFFF0F0F0),
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color(0xFFF0F0F0),
+                        unfocusedContainerColor = Color(0xFFF0F0F0),
+                        disabledContainerColor = Color(0xFFF0F0F0),
                     ),
                     visualTransformation = PasswordVisualTransformation()
                 )
@@ -258,7 +256,7 @@ fun SigninPage(modifier: Modifier, navController: NavHostController) {
                 }
 
             Spacer(modifier = Modifier.height(24.dp))
-            
+
             Text(text = "Or Create With", modifier = Modifier.align(alignment = Alignment.CenterHorizontally))
 
             Spacer(modifier = Modifier.height(8.dp))
