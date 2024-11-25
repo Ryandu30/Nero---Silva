@@ -34,10 +34,6 @@ class LoginViewModel @Inject constructor(
                     is Resource.Error -> {
                         _state.value = LoginState(error = result.message)
                     }
-
-                    is Resource.Error -> TODO()
-                    is Resource.Loading -> TODO()
-                    is Resource.Success -> TODO()
                 }
             }
         }

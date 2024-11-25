@@ -87,4 +87,7 @@ dependencies {
 
     //googleAuth
     implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation (libs.firebase.auth.v2130)
+
 }

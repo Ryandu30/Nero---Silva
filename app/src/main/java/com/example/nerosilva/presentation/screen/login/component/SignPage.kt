@@ -38,9 +38,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.nerosilva.R
+import com.example.nerosilva.navigation.Screen
 
 @Composable
-fun NeroSignPage(modifier: Modifier, navController: NavController) {
+fun SignPage(modifier: Modifier, navController: NavController) {
     var firstName by remember {
         mutableStateOf("") }
 
@@ -240,9 +241,12 @@ fun NeroSignPage(modifier: Modifier, navController: NavController) {
 
                 Spacer(modifier = Modifier.height(38.dp))
 
-                Button(
-                    onClick = {
-                    },
+            Button(
+                onClick = {
+                    if (firstName.isNotBlank() && lastName.isNotBlank() && email.isNotBlank() && password.isNotBlank()) {
+                        navController.navigate(Screen.Login.route)
+                    }
+                },
                     modifier = Modifier
                         .width(162.dp)
                         .height(33.dp),
@@ -257,7 +261,7 @@ fun NeroSignPage(modifier: Modifier, navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Text(text = "Or Create With", modifier = Modifier.align(alignment = Alignment.CenterHorizontally))
+            Text(text = "-------- Or Create With --------", modifier = Modifier.align(alignment = Alignment.CenterHorizontally))
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -280,11 +284,15 @@ fun NeroSignPage(modifier: Modifier, navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-                TextButton(onClick = {
-                    navController.navigate("login")
-                }) {
-                    Text(text = "Have you got an account?? click here!")
-                }
+            TextButton(onClick = {
+                navController.navigate(Screen.Login.route)
+            }) {
+                Text(
+                    text = "Have you got an account?? click here!",
+                    fontSize = 14.sp,
+                    color = Color(0xFF000000)
+                )
+            }
         }
     }
 }

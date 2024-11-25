@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -24,20 +25,24 @@ import com.example.nerosilva.presentation.screen.farm.FarmPage
 import com.example.nerosilva.presentation.screen.home.HomePage
 import com.example.nerosilva.presentation.screen.login.component.LoginPage
 import com.example.nerosilva.presentation.screen.login.LoginScreen
+import com.example.nerosilva.presentation.screen.login.component.SignPage
 
 @Composable
 fun NeroSilvaApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-
     NavHost(
         navController = navController,
         startDestination = "loginscreen"
     ) {
 
         composable("loginscreen") {
-            LoginScreen(modifier, navController = navController)
+            LoginScreen(modifier = modifier, navController = navController)
+        }
+
+        composable(Screen.SignPage.route) {
+            SignPage(modifier = modifier, navController = navController)
         }
 
         composable(Screen.Login.route) {
@@ -67,16 +72,17 @@ private fun BottomBar(
 
         val navigationItems = listOf(
             NavigationItem(
-                title = stringResource(id = R.string.menu_home),
+                title = "Home",
                 icon = Icons.Default.Home,
                 screen = Screen.Home
             ),
             NavigationItem(
-                title = stringResource(id = R.string.menu_farm),
+                title = "Farm",
                 icon = Icons.Default.DateRange,
                 screen = Screen.Farm
             )
         )
+
         navigationItems.map { item ->
             NavigationBarItem(
                 selected = currentRoute == item.screen.route,

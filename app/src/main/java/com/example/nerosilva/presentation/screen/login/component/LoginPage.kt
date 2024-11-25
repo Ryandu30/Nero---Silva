@@ -1,7 +1,7 @@
 package com.example.nerosilva.presentation.screen.login.component
 
 import android.annotation.SuppressLint
-import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,23 +35,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.nerosilva.R
-import com.google.firebase.auth.FirebaseAuth
+import com.example.nerosilva.navigation.Screen
+import com.example.nerosilva.presentation.screen.login.LoginViewModel
 
 @SuppressLint("ResourceType")
 @Composable
-fun LoginPage(modifier: Modifier, navController: NavController) {
+fun LoginPage(modifier: Modifier, navController: NavController, viewModel: LoginViewModel = hiltViewModel()) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var rememberMe by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -86,7 +91,8 @@ fun LoginPage(modifier: Modifier, navController: NavController) {
                 .height(91.dp)
         )
 
-        Image(painter = painterResource(id = R.drawable.pohon),
+        Image(
+            painter = painterResource(id = R.drawable.pohon),
             contentDescription = "Pohon",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
@@ -95,7 +101,8 @@ fun LoginPage(modifier: Modifier, navController: NavController) {
                 .height(390.dp)
         )
 
-        Image(painter = painterResource(id = R.drawable.bg_form),
+        Image(
+            painter = painterResource(id = R.drawable.bg_form),
             contentDescription = "Background",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
@@ -117,12 +124,13 @@ fun LoginPage(modifier: Modifier, navController: NavController) {
                     .padding(start = 24.dp),
                 horizontalArrangement = Arrangement.Start
             ) {
-            Text(text = "Log In",
-                fontSize = 24.sp,
-                fontWeight = FontWeight(700),
-                textAlign = TextAlign.Center,
-                letterSpacing = 0.48.sp,
-                color = Color(0xFFFFFFFF)
+                Text(
+                    text = "Log In",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight(700),
+                    textAlign = TextAlign.Center,
+                    letterSpacing = 0.48.sp,
+                    color = Color(0xFFFFFFFF)
                 )
             }
 
@@ -182,83 +190,110 @@ fun LoginPage(modifier: Modifier, navController: NavController) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 Checkbox(
                     checked = rememberMe,
                     onCheckedChange = { rememberMe = it },
-                    colors = CheckboxDefaults.colors(Color(0xFF259571))
+                    colors = CheckboxDefaults.colors(
+                        checkmarkColor = Color.White,
+                        uncheckedColor = Color.Black,
+                        checkedColor = Color(0xFF259571)
+                    ),
+                    modifier = Modifier.padding(end = 8.dp)
                 )
-                Text(text = "Remember me", fontSize = 14.sp, modifier = Modifier.weight(1f))
-
-                TextButton(onClick = {  }) {
-                    Text(text = "Forgot Password?",  fontSize = 14.sp, color = Color.Black)
+                Text(
+                    text = "Remember me",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight(400),
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                TextButton(onClick = { }) {
+                    Text(
+                        text = "Forgot Password?",
+                        fontSize = 14.sp,
+                        color = Color(0xFF000000),
+                        fontWeight = FontWeight(400)
+                    )
                 }
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            val auth = FirebaseAuth.getInstance()
             Button(
                 onClick = {
-                    auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                navController.navigate("menu_home")
-                            } else {
-                                Log.e("LoginError", task.exception?.message ?: "Unknown error")
+                    if (email.isNotBlank() && password.isNotBlank()) {
+                        Toast.makeText(
+                            context,
+                            "Email dan Password Wajib Diisi",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    } else {
+                        viewModel.loginUser(email, password) {
+                            navController.navigate(Screen.Home.route) {
+                                popUpTo(Screen.Login.route) {
+                                    inclusive = true
+                                }
                             }
+                            email = ""
+                            password = ""
                         }
+                    }
                 },
-                colors = ButtonDefaults.buttonColors(Color(0xFF259571)),
-                shape = RoundedCornerShape(24.dp),
-                modifier = Modifier.fillMaxWidth().height(48.dp).padding(horizontal = 24.dp)
+                modifier = Modifier
+                    .width(222.dp)
+                    .height(48.dp)
+                    .padding(horizontal = 24.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF259571),
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(24.dp)
             ) {
                 Text(
                     text = "Log In",
-                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    fontSize = 16.sp
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-            Text("Or Log In With", color = Color.Black, fontSize = 14.sp)
+            Text(text = "Or Create With", modifier = Modifier.align(alignment = Alignment.CenterHorizontally))
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-            // Social media login options
             Row(
-                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                IconButton(onClick = { /* Google login logic */ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.google),
+                IconButton(onClick = { }) {
+                    Icon(painter = painterResource(id = R.drawable.google),
                         contentDescription = "Google",
-                        modifier = Modifier.size(24.dp)
-                    )
+                        modifier = Modifier.size(24.dp))
                 }
                 Spacer(modifier = Modifier.width(16.dp))
-                IconButton(onClick = { /* Facebook login logic */ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.facebook),
-                        contentDescription = "Facebook",
-                        modifier = Modifier.size(24.dp)
-                    )
+                IconButton(onClick = { }) {
+                    Icon(painter = painterResource(id = R.drawable.facebook), contentDescription = "Facebook",
+                        modifier = Modifier.size(24.dp))
                 }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             TextButton(onClick = {
-                navController.navigate("signin")
+                navController.navigate(Screen.SignPage.route)
             }) {
-                Text(text = "Have you got an account?? click here!")
+                Text(
+                    text = "Don't have an account yet? click here!",
+                    fontSize = 14.sp,
+                    color = Color(0xFF000000)
+                )
             }
         }
     }

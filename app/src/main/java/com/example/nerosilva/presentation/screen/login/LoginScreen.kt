@@ -89,7 +89,7 @@ fun LoginScreen(modifier: Modifier, navController: NavController){
                     containerColor = Color(0xFF74B49A)
                 ),
                 onClick = {
-                    navController.navigate("login")
+                    navController.navigate("signpage")
                 }
             ) {
 
