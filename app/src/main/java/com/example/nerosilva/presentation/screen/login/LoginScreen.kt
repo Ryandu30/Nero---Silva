@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.nerosilva.R
+import com.example.nerosilva.navigation.Screen
 
 @Composable
 fun LoginScreen(modifier: Modifier, navController: NavController){
@@ -89,7 +90,7 @@ fun LoginScreen(modifier: Modifier, navController: NavController){
                     containerColor = Color(0xFF74B49A)
                 ),
                 onClick = {
-                    navController.navigate("signpage")
+                    navController.navigate(Screen.Register.route)
                 }
             ) {
 

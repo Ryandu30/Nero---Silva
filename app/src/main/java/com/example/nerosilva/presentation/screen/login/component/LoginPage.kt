@@ -225,14 +225,9 @@ fun LoginPage(modifier: Modifier, navController: NavController, viewModel: Login
 
             Button(
                 onClick = {
+                    /*Ketika Login Jika Membuat Kondisi Pakai isNotBlank Pastikan Aplikasi Akses ViewModel
+                    * saat Kondisi True. Sebelumnya Terbalik */
                     if (email.isNotBlank() && password.isNotBlank()) {
-                        Toast.makeText(
-                            context,
-                            "Email dan Password Wajib Diisi",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    } else {
                         viewModel.loginUser(email, password) {
                             navController.navigate(Screen.Home.route) {
                                 popUpTo(Screen.Login.route) {
@@ -242,6 +237,13 @@ fun LoginPage(modifier: Modifier, navController: NavController, viewModel: Login
                             email = ""
                             password = ""
                         }
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Email dan Password Wajib Diisi",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
                     }
                 },
                 modifier = Modifier
@@ -287,7 +289,7 @@ fun LoginPage(modifier: Modifier, navController: NavController, viewModel: Login
             Spacer(modifier = Modifier.height(16.dp))
 
             TextButton(onClick = {
-                navController.navigate(Screen.SignPage.route)
+                navController.navigate(Screen.Register.route)
             }) {
                 Text(
                     text = "Don't have an account yet? click here!",

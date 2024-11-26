@@ -90,4 +90,10 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation (libs.firebase.auth.v2130)
 
+    //retrofit
+    implementation ("com.squareup.retrofit2:retrofit")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+
 }

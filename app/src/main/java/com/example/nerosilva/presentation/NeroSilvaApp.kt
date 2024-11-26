@@ -25,7 +25,7 @@ import com.example.nerosilva.presentation.screen.farm.FarmPage
 import com.example.nerosilva.presentation.screen.home.HomePage
 import com.example.nerosilva.presentation.screen.login.component.LoginPage
 import com.example.nerosilva.presentation.screen.login.LoginScreen
-import com.example.nerosilva.presentation.screen.login.component.SignPage
+import com.example.nerosilva.presentation.screen.login.component.RegisterPage
 
 @Composable
 fun NeroSilvaApp(
@@ -41,8 +41,8 @@ fun NeroSilvaApp(
             LoginScreen(modifier = modifier, navController = navController)
         }
 
-        composable(Screen.SignPage.route) {
-            SignPage(modifier = modifier, navController = navController)
+        composable(Screen.Register.route) {
+            RegisterPage(modifier = modifier, navController = navController)
         }
 
         composable(Screen.Login.route) {

@@ -41,7 +41,7 @@ import com.example.nerosilva.R
 import com.example.nerosilva.navigation.Screen
 
 @Composable
-fun SignPage(modifier: Modifier, navController: NavController) {
+fun RegisterPage(modifier: Modifier, navController: NavController) {
     var firstName by remember {
         mutableStateOf("") }
 
@@ -130,7 +130,7 @@ fun SignPage(modifier: Modifier, navController: NavController) {
             }
 
             Spacer(modifier = Modifier.height(6.dp)
-                )
+            )
 
             Row(
                 modifier = modifier
@@ -186,60 +186,60 @@ fun SignPage(modifier: Modifier, navController: NavController) {
                     )
                 }
             }
-                Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                Text(
+            Text(
                 text = "Email",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight(400),
-                    color = Color(0xFF000000),
-                    modifier = Modifier
-                        .padding(end = 260.dp, bottom = 10.dp)
-                )
-                OutlinedTextField(
-                    value = email,
-                    onValueChange = {
-                        email = it
-                    },
-                    modifier = Modifier
-                        .width(320.dp)
-                        .height(46.dp),
-                    shape = RoundedCornerShape(size = 90.dp),
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color(0xFFF0F0F0),
-                        unfocusedContainerColor = Color(0xFFF0F0F0),
-                        disabledContainerColor = Color(0xFFF0F0F0),
-                    ),
-                )
+                fontSize = 14.sp,
+                fontWeight = FontWeight(400),
+                color = Color(0xFF000000),
+                modifier = Modifier
+                    .padding(end = 260.dp, bottom = 10.dp)
+            )
+            OutlinedTextField(
+                value = email,
+                onValueChange = {
+                    email = it
+                },
+                modifier = Modifier
+                    .width(320.dp)
+                    .height(46.dp),
+                shape = RoundedCornerShape(size = 90.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color(0xFFF0F0F0),
+                    unfocusedContainerColor = Color(0xFFF0F0F0),
+                    disabledContainerColor = Color(0xFFF0F0F0),
+                ),
+            )
 
-                Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                Text(
-                    text = "Password",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight(400),
-                    color = Color(0xFF000000),
-                    modifier = Modifier
-                        .padding(end = 230.dp, bottom = 10.dp)
-                )
-                OutlinedTextField(
-                    value = password,
-                    onValueChange = {
-                        password = it
-                    },
-                    modifier = Modifier
-                        .width(320.dp)
-                        .height(46.dp),
-                    shape = RoundedCornerShape(size = 90.dp),
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color(0xFFF0F0F0),
-                        unfocusedContainerColor = Color(0xFFF0F0F0),
-                        disabledContainerColor = Color(0xFFF0F0F0),
-                    ),
-                    visualTransformation = PasswordVisualTransformation()
-                )
+            Text(
+                text = "Password",
+                fontSize = 14.sp,
+                fontWeight = FontWeight(400),
+                color = Color(0xFF000000),
+                modifier = Modifier
+                    .padding(end = 230.dp, bottom = 10.dp)
+            )
+            OutlinedTextField(
+                value = password,
+                onValueChange = {
+                    password = it
+                },
+                modifier = Modifier
+                    .width(320.dp)
+                    .height(46.dp),
+                shape = RoundedCornerShape(size = 90.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color(0xFFF0F0F0),
+                    unfocusedContainerColor = Color(0xFFF0F0F0),
+                    disabledContainerColor = Color(0xFFF0F0F0),
+                ),
+                visualTransformation = PasswordVisualTransformation()
+            )
 
-                Spacer(modifier = Modifier.height(38.dp))
+            Spacer(modifier = Modifier.height(38.dp))
 
             Button(
                 onClick = {
@@ -247,17 +247,17 @@ fun SignPage(modifier: Modifier, navController: NavController) {
                         navController.navigate(Screen.Login.route)
                     }
                 },
-                    modifier = Modifier
-                        .width(162.dp)
-                        .height(33.dp),
-                    colors = ButtonDefaults.buttonColors(Color(0xFF259571))
-                ) {
-                    Text(text = "Create Account",
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight(700),
-                    )
-                }
+                modifier = Modifier
+                    .width(162.dp)
+                    .height(33.dp),
+                colors = ButtonDefaults.buttonColors(Color(0xFF259571))
+            ) {
+                Text(text = "Create Account",
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight(700),
+                )
+            }
 
             Spacer(modifier = Modifier.height(24.dp))
 
