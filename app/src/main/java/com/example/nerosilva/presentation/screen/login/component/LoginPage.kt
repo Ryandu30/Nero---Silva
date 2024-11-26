@@ -40,6 +40,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -47,6 +48,7 @@ import androidx.navigation.NavController
 import com.example.nerosilva.R
 import com.example.nerosilva.navigation.Screen
 import com.example.nerosilva.presentation.screen.login.LoginViewModel
+import com.example.nerosilva.ui.theme.NeroSilvaTheme
 
 @SuppressLint("ResourceType")
 @Composable

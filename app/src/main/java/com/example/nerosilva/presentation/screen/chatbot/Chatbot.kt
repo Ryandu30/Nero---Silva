@@ -43,13 +43,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.nerosilva.presentation.screen.chatbot.component.ChatUiEvent
 import com.example.nerosilva.presentation.screen.chatbot.component.ChatViewModel
 import com.example.nerosilva.R
 import com.example.nerosilva.ui.theme.NeroSilvaTheme
 
 @Composable
-fun ChatbotPage(modifier: Modifier = Modifier, viewModel: ChatViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+fun ChatbotPage(modifier: Modifier = Modifier, navController: NavController, viewModel: ChatViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
     Column (
         modifier = Modifier.fillMaxSize()
     ) {
@@ -197,14 +198,4 @@ fun TopBarNeroSilva() {
             }
         }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ChatbotPreview() {
-    NeroSilvaTheme {
-        ChatbotPage(
-            viewModel = ChatViewModel()
-        )
-    }
 }

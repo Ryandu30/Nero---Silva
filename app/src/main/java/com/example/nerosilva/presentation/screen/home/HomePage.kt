@@ -25,60 +25,42 @@ import androidx.navigation.NavController
 import com.example.nerosilva.R
 
 @Composable
-fun HomePage(modifier: Modifier, navController: NavController) {
-    // Tambahkan background hijau muda ke seluruh layar
+fun HomePage(modifier: Modifier = Modifier, navController: NavController) {
+    // Layar dengan latar belakang hijau muda
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(0xFFEAF5EB)) // Background ditambahkan
+            .background(color = Color(0xFFEAF5EB))
             .padding(16.dp)
     ) {
-        // Header Section
+        // Header
         Text(
             text = "Mulai kebun hidroponikmu sekarang 🌱",
-            style = MaterialTheme.typography.titleMedium,
-            color = Color(0xFF004D40),
+            style = MaterialTheme.typography.titleMedium.copy(
+                color = Color(0xFF004D40),
+                fontWeight = FontWeight.Bold
+            ),
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Main CTA Section
-        Card(
-            colors = CardDefaults.cardColors(containerColor = Color.White),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Siap untuk Memulai berkebun hari ini?",
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    onClick = { /* TODO: Add action */ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF009688))
-                ) {
-                    Text(text = "Mulai Berkebun", color = Color.White)
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-        }
+        // Kartu utama (CTA)
+        HydroponicCard()
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Educational Recommendations Section
+        // Rekomendasi edukasi
         Text(
             text = "Rekomendasi Edukasi",
-            style = MaterialTheme.typography.titleMedium,
-            color = Color(0xFF004D40),
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF004D40)
+            ),
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
+        // Daftar edukasi
         LazyColumn(
-            modifier = Modifier.fillMaxSize() // Menyesuaikan LazyColumn dengan layar
+            modifier = Modifier.fillMaxSize()
         ) {
             items(listOf("Hidroponik Fundamental", "Teknik Menanam Hidroponik")) { title ->
                 EducationalCard(title = title)
@@ -88,7 +70,58 @@ fun HomePage(modifier: Modifier, navController: NavController) {
 }
 
 @Composable
-fun EducationalCard(title: String, imageResId: Int = R.drawable.image) {
+fun HydroponicCard() {
+    Card(
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Siap untuk memulai berkebun hari ini?",
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        color = Color(0xFF004D40),
+                        fontWeight = FontWeight.Bold
+                    ),
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                Button(
+                    onClick = { /* Aksi */ },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF009688))
+                ) {
+                    Text(text = "Mulai Berkebun", color = Color.White)
+                }
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.hidroponik_1),
+                contentDescription = "Hidroponik Image",
+                modifier = Modifier
+                    .size(120.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .border(2.dp, Color(0xFF004D40), RoundedCornerShape(12.dp))
+            )
+        }
+    }
+}
+
+@Composable
+fun EducationalCard(title: String) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = RoundedCornerShape(18.dp),
@@ -100,46 +133,26 @@ fun EducationalCard(title: String, imageResId: Int = R.drawable.image) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.Start
         ) {
-            // Teks "Rekomendasi Edukasi" dengan efek bold dan 3D
             Text(
-                text = "Hidroponik Fundamental",
+                text = title,
                 style = MaterialTheme.typography.titleMedium.copy(
-                    fontWeight = FontWeight.ExtraBold // Membuat teks lebih bold
-                ),
-                color = Color(0xFF004D40), // Warna hijau gelap
-                modifier = Modifier
-                    .shadow(4.dp, shape = RoundedCornerShape(8.dp)) // Efek bayangan 3D
-                    .background(
-                        color = Color.White, // Warna latar belakang putih
-                        shape = RoundedCornerShape(8.dp) // Sudut melengkung
-                    )
-                    .padding(horizontal = 12.dp, vertical = 8.dp) // Padding internal
-
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF004D40)
+                )
             )
 
-            // Gambar besar di bawah teks
             Image(
                 painter = painterResource(id = R.drawable.sayuran),
                 contentDescription = "Educational Image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp) // Ukuran gambar lebih besar
-                    .clip(RoundedCornerShape(6.dp))
-                    .border(2.dp, Color(0xFF004D40), RoundedCornerShape(6.dp))
-            )
-
-            // Teks judul di bawah gambar
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    color = Color(0xFF004D40),
-                    fontWeight = FontWeight.Normal
-                ),
-                modifier = Modifier.padding(horizontal = 8.dp)
+                    .height(150.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .border(2.dp, Color(0xFF004D40), RoundedCornerShape(8.dp))
             )
         }
     }

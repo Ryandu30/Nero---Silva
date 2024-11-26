@@ -1,7 +1,5 @@
 package com.example.nerosilva.presentation.screen.login
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,9 +37,9 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun registerUser (email: String, password: String, home: () -> Unit) {
+    fun registerUser (firstName: String, lastName: String,email: String, password: String, home: () -> Unit) {
         viewModelScope.launch {
-            repository.registerUser (email = email, password = password).collect { result ->
+            repository.registerUser (firstName = firstName, lastName = lastName,email = email, password = password).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _state.value = LoginState(success = "Register Berhasil")
