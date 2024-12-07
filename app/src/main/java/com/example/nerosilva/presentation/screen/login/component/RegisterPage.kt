@@ -46,9 +46,7 @@ import com.example.nerosilva.presentation.screen.login.LoginViewModel
 
 @Composable
 fun RegisterPage(modifier: Modifier, navController: NavController, viewModel: LoginViewModel = hiltViewModel()) {
-    var firstName by remember { mutableStateOf("") }
-
-    var lastName by remember { mutableStateOf("") }
+    var fullname by remember { mutableStateOf("") }
 
     var email by remember { mutableStateOf("") }
 
@@ -129,63 +127,32 @@ fun RegisterPage(modifier: Modifier, navController: NavController, viewModel: Lo
                 )
             }
 
-            Spacer(modifier = Modifier.height(6.dp)
+            Spacer(modifier = Modifier.height(40.dp))
+
+            Text(
+                text = "Full Name",
+                fontSize = 14.sp,
+                fontWeight = FontWeight(400),
+                color = Color(0xFF000000),
+                modifier = Modifier
+                    .padding(end = 240.dp, bottom = 10.dp)
+            )
+            OutlinedTextField(
+                value = fullname,
+                onValueChange = {
+                    fullname = it
+                },
+                modifier = Modifier
+                    .width(320.dp)
+                    .height(46.dp),
+                shape = RoundedCornerShape(size = 90.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color(0xFFF0F0F0),
+                    unfocusedContainerColor = Color(0xFFF0F0F0),
+                    disabledContainerColor = Color(0xFFF0F0F0),
+                ),
             )
 
-            Row(
-                modifier = modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-            ) {
-
-                Column {
-                    Text(
-                        text = "First Name",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight(400),
-                        color = Color(0xFF000000),
-                        modifier = Modifier
-                            .padding(start = 12.dp, bottom = 10.dp)
-                    )
-                    OutlinedTextField(
-                        value = firstName,
-                        onValueChange = { firstName = it },
-                        modifier = Modifier
-                            .width(150.dp)
-                            .height(46.dp),
-                        shape = RoundedCornerShape(50),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color(0xFFF0F0F0),
-                            unfocusedContainerColor = Color(0xFFF0F0F0),
-                            disabledContainerColor = Color(0xFFF0F0F0)
-                        ),
-                    )
-                }
-
-                Column {
-                    Text(
-                        text = "Last Name",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight(400),
-                        color = Color(0xFF000000),
-                        modifier = Modifier
-                            .padding(start = 12.dp, bottom = 10.dp)
-                    )
-                    OutlinedTextField(
-                        value = lastName,
-                        onValueChange = { lastName = it },
-                        modifier = Modifier
-                            .width(150.dp)
-                            .height(46.dp),
-                        shape = RoundedCornerShape(50),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color(0xFFF0F0F0),
-                            unfocusedContainerColor = Color(0xFFF0F0F0),
-                            disabledContainerColor = Color(0xFFF0F0F0),
-                        ),
-                    )
-                }
-            }
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
@@ -243,16 +210,15 @@ fun RegisterPage(modifier: Modifier, navController: NavController, viewModel: Lo
 
             Button(
                 onClick = {
-                    if (firstName.isNotBlank() && lastName.isNotBlank() && email.isNotBlank() && password.isNotBlank()) {
-                        viewModel.registerUser(firstName, lastName, email, password) {
+                    if (fullname.isNotBlank() && email.isNotBlank() && password.isNotBlank()) {
+                        viewModel.registerUser(fullname, email, password) {
                             navController.navigate(Screen.Home.route) {
                                 popUpTo(Screen.Login.route) {
                                     inclusive = true
                                 }
                             }
                             // Reset input setelah berhasil
-                            firstName = ""
-                            lastName = ""
+                            fullname = ""
                             email = ""
                             password = ""
                         }

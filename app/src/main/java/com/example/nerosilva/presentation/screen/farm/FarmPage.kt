@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -41,7 +42,6 @@ fun FarmPage(modifier: Modifier = Modifier, navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize()
         .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         CalendarSection(navController = navController)
         WeatherSection()
@@ -57,8 +57,8 @@ fun HydroponicBackground() {
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFFD7EAE3),
-                        Color(0xFFF4EDE2)
+                        Color(0xFFF4EDE2),
+                        Color(0xFFD7EAE3)
                     )
                 )
             )
@@ -73,185 +73,267 @@ fun CalendarSection(navController: NavController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFA7D7C5)
-        )
+            .padding(top = 20.dp, end = 24.dp, bottom = 8.dp, start = 24.dp),
+        shape = RoundedCornerShape(10.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFA7D7C5)) // Warna latar belakang hijau pastel
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(13.dp)
+                .padding(8.dp)
         ) {
+            // Bagian Navigasi Bulan
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = {
                     selectedDate = selectedDate.minusMonths(1)
                 }) {
                     Icon(
                         imageVector = Icons.Default.KeyboardArrowLeft,
-                        contentDescription = "Bulan sebelumnya"
+                        contentDescription = "Bulan sebelumnya",
+                        modifier = Modifier.size(30.dp)
                     )
                 }
                 Text(
-                    text = selectedDate.format(DateTimeFormatter.ofPattern("MMMM")),
+                    text = selectedDate.format(DateTimeFormatter.ofPattern("MMMM yyyy")),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
+                    fontSize = 20.sp,
                 )
                 IconButton(onClick = {
                     selectedDate = selectedDate.plusMonths(1)
                 }) {
                     Icon(
                         imageVector = Icons.Default.KeyboardArrowRight,
-                        contentDescription = "Bulan berikutnya"
+                        contentDescription = "Bulan berikutnya",
+                        modifier = Modifier.size(30.dp)
                     )
                 }
             }
 
+            Spacer(modifier = Modifier.height(4.dp)) // Jarak antara bagian bulan dan hari/tanggal
+
+            // Bagian Hari dan Tanggal
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                val dayOfWeek = selectedDate.format(DateTimeFormatter.ofPattern("EEEE")) // Hari
+                val dayOfMonth = selectedDate.format(DateTimeFormatter.ofPattern("d")) // Tanggal
+                val month = selectedDate.format(DateTimeFormatter.ofPattern("MMMM")) // Bulan
+
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = dayOfWeek, // Menampilkan nama hari
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = "$dayOfMonth $month", // Menampilkan tanggal lengkap
+                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp)) // Jarak antara hari/tanggal dan tombol lihat selengkapnya
+
+            // Tombol Lihat Selengkapnya
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Button(
-                    onClick = {  navController.navigate(Screen.Calender.route) },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5C8D89))
+                    onClick = { navController.navigate(Screen.Calender.route) },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4F9F4)), // Warna tombol terang
+                    shape = RoundedCornerShape(12.dp), // Sudut membulat
+                    modifier = Modifier
+                        .height(44.dp)
+                        .padding(horizontal = 10.dp)
                 ) {
-                    Text("Lihat Selengkapnya", color = Color.White)
+                    Text(
+                        text = "Lihat Selengkapnya",
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(400)
+                    )
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun WeatherSection() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 2.dp
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFA7D7C5)
-        )
+            .padding(horizontal = 24.dp, vertical = 8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        shape = RoundedCornerShape(30.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFF4F9F4)), // Warna hijau pastel sesuai desain
     ) {
         Column(
-            modifier = Modifier
-                .padding(11.dp)
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
+            // Header Cuaca
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(9.dp),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     painter = painterResource(R.drawable.cloud),
-                    contentDescription = "Cuaca"
+                    contentDescription = "Cuaca",
+                    modifier = Modifier.size(28.dp)
                 )
-                Spacer(modifier = Modifier.width(5.dp))
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Cuaca Hari Ini",
-                    style = MaterialTheme.typography.labelMedium
+                    style = TextStyle (
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(400),
+                        color = Color(0xB217181D),
+
+                        )
                 )
             }
+
+            // Informasi Cuaca
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Icon(
                     painter = painterResource(R.drawable.weather),
                     contentDescription = "Hujan",
-                    modifier = Modifier.size(95.dp)
+                    modifier = Modifier.size(96.dp)
                 )
-                Spacer(modifier = Modifier.width(40.dp))
                 Column(
-                    verticalArrangement = Arrangement.Center
+                    horizontalAlignment = Alignment.End
                 ) {
                     Text(
                         text = "28°C",
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.headlineSmall.copy(
+                            color = Color(0xFF212121), // Warna teks suhu
+                            fontWeight = FontWeight.Bold
+                        )
                     )
                     Text(
                         text = "Heavy Rain",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            color = Color(0xFF757575)
+                        )
                     )
                 }
             }
 
-            Text(
-                text = "Informasi",
-                style = MaterialTheme.typography.titleSmall
-            )
-            Text(
-                text = "Anda belum mempunyai rencana perkebunan!",
-                style = MaterialTheme.typography.bodySmall
-            )
+            // Informasi Rencana
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Informasi",
+                    style = TextStyle (
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(400),
+                        color = Color(0xB217181D),
+                    )
+                )
+                Text(
+                    text = "Anda belum mempunyai rencana perkebunan!",
+                    style = TextStyle (
+                        fontSize = 14.sp,
+                        lineHeight = 20.sp,
+                        fontWeight = FontWeight(300),
+                        color = Color(0xB217181D),
+
+                        )
+                )
+            }
         }
     }
 }
+
 
 @Composable
 fun DailyActivitySection() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 2.dp
-        ),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xF4F9F4)
-        )
+            .padding(horizontal = 24.dp, vertical = 8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        shape = RoundedCornerShape(30.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFF4F9F4)) // Sesuai desain
     ) {
         Column(
-            modifier = Modifier
-                .padding(16.dp)
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Header Section
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
             ) {
                 Icon(
                     imageVector = Icons.Default.List,
                     contentDescription = "Kegiatan Harian",
-                    modifier = Modifier.size(24.dp)
+                    tint = Color(0xFF5C8D89), // Warna ikon
+                    modifier = Modifier.size(28.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Kegiatan Harian",
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        color = Color(0xFF212121), // Warna teks sesuai desain
+                        fontWeight = FontWeight.Bold
+                    )
                 )
             }
-            Spacer(modifier = Modifier.height(16.dp))
 
+            // Card untuk Kegiatan
             Card(
-                shape = RoundedCornerShape(8.dp),
+                shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFF))
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFFFFF)) // Putih sesuai desain
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        text = "Kegiatan Hari Ini",
-                        style = MaterialTheme.typography.bodyMedium
+                        text = "Anda belum mempunyai agenda harian!",
+                        style = TextStyle (
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight(400),
+                            color = Color(0xB217181D),
+                            )
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Membersihkan bagian yang mulai ditumbuhi lumut, dengan menggunakan air bersih dan mengalir",
-                        style = MaterialTheme.typography.labelSmall
+                        text = "Silahkan tambahkan data perencanaan anda terlebih dahulu, Tekan tombol dan mulai untuk berkebun.",
+                        style = TextStyle (
+                            fontSize = 14.sp,
+                            lineHeight = 20.sp,
+                            fontWeight = FontWeight(400),
+                            color = Color(0x9917181D),
+                            )
                     )
+
+                    // Tombol Mulai Berkebun
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        MulaiBerkebunButton()
+                        MulaiBerkebunButton() // Panggil tombol
                     }
                 }
             }
@@ -263,8 +345,20 @@ fun DailyActivitySection() {
 fun MulaiBerkebunButton() {
     var showPopup by remember { mutableStateOf(false) }
 
-    Button(onClick = { showPopup = true }) {
-        Text("Mulai Berkebun")
+    Button(
+        onClick = { showPopup = true },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFFF5C8D89) // Warna tombol kuning sesuai desain
+        ),
+        shape = RoundedCornerShape(12.dp) // Membuat tombol lebih elegan
+    ) {
+        Text(
+            text = "Mulai Berkebun",
+            style = MaterialTheme.typography.bodyMedium.copy(
+                color = Color.White,
+                fontWeight = FontWeight.Bold
+            )
+        )
     }
 
     if (showPopup) {
@@ -281,10 +375,16 @@ fun MulaiBerkebunButton() {
                 ) {
                     Text(
                         text = "Rencana Perkebunan",
-                        style = MaterialTheme.typography.headlineSmall
+                        style = MaterialTheme.typography.headlineSmall.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF212121)
+                        )
                     )
-                    Button(onClick = { showPopup = false }) {
-                        Text("Tutup")
+                    Button(
+                        onClick = { showPopup = false },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5C8D89))
+                    ) {
+                        Text("Tutup", color = Color.White)
                     }
                 }
             }

@@ -18,11 +18,13 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -30,9 +32,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -73,20 +75,12 @@ fun NeroSilvaApp(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Start
                         ) {
-                            IconButton(onClick = { }) {
-                                Icon(
-                                    imageVector = Icons.Default.KeyboardArrowLeft,
-                                    contentDescription = "Back",
-                                    modifier = Modifier.size(30.dp)
-                                )
-                            }
-                            Spacer(modifier = Modifier.width(8.dp))
+                            Spacer(modifier = Modifier.width(12.dp))
                             Image(
                                 painter = painterResource(id = R.drawable.logo),
                                 contentDescription = "Nero Silva Icon",
                                 modifier = Modifier
-                                    .width(75.dp)
-                                    .height(40.dp)
+                                    .size(95.dp)
                                     .padding(end = 8.dp)
                             )
                         }
@@ -96,11 +90,11 @@ fun NeroSilvaApp(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.End
                         ) {
-                            IconButton(onClick = { }) {
+                            IconButton(onClick = { navController.navigate(Screen.Notification.route) }) {
                                 Icon(
-                                    painter = painterResource(id = R.drawable.image),
+                                    imageVector = Icons.Default.Notifications,
                                     contentDescription = "Notification",
-                                    modifier = Modifier.size(30.dp)
+                                    modifier = Modifier.size(35.dp)
                                 )
                             }
                             IconButton(onClick = { }) {
@@ -130,31 +124,60 @@ fun NeroSilvaApp(
             modifier = modifier.padding(contentPadding)
         ) {
 
-        composable("loginscreen") {
-            LoginScreen(modifier = modifier, navController = navController)
-        }
+            composable("loginscreen") {
+                LoginScreen(
+                    modifier = modifier,
+                    navController = navController
+                )
+            }
 
-        composable(Screen.Register.route) {
-            RegisterPage(modifier = modifier, navController = navController)
-        }
+            composable(Screen.Register.route) {
+                RegisterPage(
+                    modifier = modifier,
+                    navController = navController
+                )
+            }
 
-        composable(Screen.Login.route) {
-            LoginPage(modifier, navController = navController)
-        }
+            composable(Screen.Login.route) {
+                LoginPage(
+                    modifier = modifier,
+                    navController = navController
+                )
+            }
 
-        composable(Screen.Home.route) {
-            HomePage(modifier, navController = navController)
-        }
+            composable(Screen.Home.route) {
+                HomePage(
+                    modifier = modifier,
+                    navController = navController
+                )
+            }
 
-        composable(Screen.Farm.route) {
-            FarmPage(modifier, navController = navController)
-        }
+            composable(Screen.Notification.route) {
+                ChatbotPage(
+                    modifier = modifier,
+                    navController = navController
+                )
+            }
+
+            composable(Screen.Farm.route) {
+                FarmPage(
+                    modifier = modifier,
+                    navController = navController
+                )
+            }
+
             composable(Screen.Calender.route) {
-                CalendarPage(modifier, navController = navController)
+                CalendarPage(
+                    modifier = modifier,
+                    navController = navController
+                )
             }
 
             composable(Screen.Chatbot.route) {
-                ChatbotPage(modifier, navController = navController)
+                ChatbotPage(
+                    modifier = modifier,
+                    navController = navController
+                )
             }
         }
     }
@@ -166,7 +189,8 @@ fun BottomBar(
     modifier: Modifier = Modifier
 ) {
     NavigationBar(
-        modifier = modifier
+        modifier = modifier,
+        containerColor = Color(0xFF5C8D89)
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -201,9 +225,24 @@ fun BottomBar(
                         launchSingleTop = true
                     }
                 },
-                icon = { Icon(imageVector = item.icon, contentDescription = item.title) },
-                label = { Text(text = item.title) }
+                icon = {
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = item.title,
+                        modifier = Modifier.size(24.dp),
+                        tint = Color.White
+                    )
+                },
+                label = {
+                    Text(
+                        text = item.title,
+                        color = Color.White
+                    )
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    indicatorColor = Color(0xFF74B49B),
                 )
-            }
+            )
         }
     }
+}

@@ -16,7 +16,6 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginState())
-    val state = _state.asStateFlow()
 
     fun loginUser (email: String, password: String, home: () -> Unit) {
         viewModelScope.launch {
@@ -37,9 +36,9 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun registerUser (firstName: String, lastName: String,email: String, password: String, home: () -> Unit) {
+    fun registerUser (fullname: String, email: String, password: String, home: () -> Unit) {
         viewModelScope.launch {
-            repository.registerUser (firstName = firstName, lastName = lastName,email = email, password = password).collect { result ->
+            repository.registerUser (fullname = fullname, email = email, password = password).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _state.value = LoginState(success = "Register Berhasil")
