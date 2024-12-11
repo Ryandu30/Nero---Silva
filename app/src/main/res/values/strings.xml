@@ -2,7 +2,6 @@
     <string name="app_name">Neró Silva</string>
     <string name="menu_home">Home</string>
     <string name="menu_farm">Farm</string>
-    <string name="menu_marketplace">Marketplace</string>
     <string name="menu_chatbot">Chatbot</string>
-    <string name="menu_seller">Seller</string>
+    <string name="menu_profile">Profile</string>
 </resources>

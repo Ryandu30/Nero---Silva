@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -34,6 +36,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -127,7 +130,7 @@ fun RegisterPage(modifier: Modifier, navController: NavController, viewModel: Lo
                 )
             }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(36.dp))
 
             Text(
                 text = "Full Name",
@@ -144,13 +147,19 @@ fun RegisterPage(modifier: Modifier, navController: NavController, viewModel: Lo
                 },
                 modifier = Modifier
                     .width(320.dp)
-                    .height(46.dp),
+                    .height(50.dp),
                 shape = RoundedCornerShape(size = 90.dp),
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color(0xFFF0F0F0),
                     unfocusedContainerColor = Color(0xFFF0F0F0),
                     disabledContainerColor = Color(0xFFF0F0F0),
+                    focusedIndicatorColor = Color(0xFF259571),
+                    unfocusedIndicatorColor = Color.Transparent
                 ),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.None
+                ),
+                singleLine = true
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -170,13 +179,19 @@ fun RegisterPage(modifier: Modifier, navController: NavController, viewModel: Lo
                 },
                 modifier = Modifier
                     .width(320.dp)
-                    .height(46.dp),
+                    .height(50.dp),
                 shape = RoundedCornerShape(size = 90.dp),
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color(0xFFF0F0F0),
                     unfocusedContainerColor = Color(0xFFF0F0F0),
                     disabledContainerColor = Color(0xFFF0F0F0),
+                    focusedIndicatorColor = Color(0xFF259571),
+                    unfocusedIndicatorColor = Color.Transparent
                 ),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.None
+                ),
+                singleLine = true
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -196,13 +211,19 @@ fun RegisterPage(modifier: Modifier, navController: NavController, viewModel: Lo
                 },
                 modifier = Modifier
                     .width(320.dp)
-                    .height(46.dp),
+                    .height(50.dp),
                 shape = RoundedCornerShape(size = 90.dp),
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color(0xFFF0F0F0),
                     unfocusedContainerColor = Color(0xFFF0F0F0),
                     disabledContainerColor = Color(0xFFF0F0F0),
+                    focusedIndicatorColor = Color(0xFF259571),
+                    unfocusedIndicatorColor = Color.Transparent
                 ),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.None
+                ),
+                singleLine = true,
                 visualTransformation = PasswordVisualTransformation()
             )
 

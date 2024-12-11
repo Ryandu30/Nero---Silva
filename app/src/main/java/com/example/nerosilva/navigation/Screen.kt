@@ -8,4 +8,7 @@ sealed class Screen (val route: String){
     data object Calender : Screen("calender")
     data object Notification : Screen("notification")
     data object Chatbot : Screen("chatbot")
+    data object Profile : Screen("profile")
+    data object Account : Screen("account")
+    data object SecurityAndPrivacy : Screen("securityandprivacy")
 }

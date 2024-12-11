@@ -1,8 +1,10 @@
 package com.example.nerosilva.data.network
 
-class Repository {
-    private val apiService = RetrofitInstance.api
+import javax.inject.Inject
 
+class Repository @Inject constructor(
+    private val apiService: ApiService
+) {
     suspend fun registerUser(request: RegisterRequest) = apiService.registerUser(request)
     suspend fun loginUser(request: LoginRequest) = apiService.loginUser(request)
     suspend fun verifyToken(token: String) = apiService.verifyToken(token)

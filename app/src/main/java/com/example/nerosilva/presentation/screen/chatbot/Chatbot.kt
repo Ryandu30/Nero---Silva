@@ -47,6 +47,7 @@ import androidx.navigation.NavController
 import com.example.nerosilva.presentation.screen.chatbot.component.ChatUiEvent
 import com.example.nerosilva.presentation.screen.chatbot.component.ChatViewModel
 import com.example.nerosilva.R
+import com.example.nerosilva.navigation.Screen
 import com.example.nerosilva.ui.theme.NeroSilvaTheme
 
 @Composable
@@ -54,7 +55,7 @@ fun ChatbotPage(modifier: Modifier = Modifier, navController: NavController, vie
     Column (
         modifier = Modifier.fillMaxSize()
     ) {
-        TopBarNeroSilva()
+        TopBarNeroSilva(navController = navController)
 
         Spacer(modifier = Modifier.height(220.dp))
 
@@ -142,6 +143,7 @@ fun MessageInput(onMessageSend : (String)-> Unit, modifier: Modifier = Modifier)
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color(0xFFF0F0F0),
                 unfocusedContainerColor = Color(0xFFF0F0F0),
+                focusedIndicatorColor = Color(0xFF2E2E2E),
             )
             ,
             value = message,
@@ -168,17 +170,10 @@ fun MessageInput(onMessageSend : (String)-> Unit, modifier: Modifier = Modifier)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarNeroSilva() {
+fun TopBarNeroSilva(navController: NavController) {
     TopAppBar(
         title = {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = { }) {
-                    Icon(
-                        imageVector = Icons.Default.Menu,
-                        contentDescription = "Menu Icon",
-                        tint = Color(0xFF299673)
-                    )
-                }
                 Image(
                     painter = painterResource(id = R.drawable.logo),
                     contentDescription = "Logo",
@@ -189,7 +184,15 @@ fun TopBarNeroSilva() {
                 )
             }},
         actions = {
-            IconButton(onClick = {  }) {
+            IconButton(onClick = {
+                navController.navigate(Screen.Home.route) {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Chatbot.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            }) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = "Close Icon",

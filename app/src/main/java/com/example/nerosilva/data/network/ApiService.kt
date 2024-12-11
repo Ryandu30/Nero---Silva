@@ -1,10 +1,7 @@
 package com.example.nerosilva.data.network
 
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Path
+import retrofit2.Response
+import retrofit2.http.*
 
 data class RegisterRequest(val fullname: String, val email: String, val password: String)
 data class LoginRequest(val email: String, val password: String)
@@ -28,7 +25,10 @@ interface ApiService {
     suspend fun getPlants(): List<PlantResponse>
 
     @POST("/plan")
-    suspend fun createPlan(@Header("Authorization") token: String, @Body request: PlanRequest)
+    suspend fun createPlan(
+        @Header("Authorization") token: String,
+        @Body request: PlanRequest
+    ): Response<Unit>
 
     @POST("/plan/{id}")
     suspend fun getUserPlans(@Header("Authorization") token: String, @Path("id") userId: String): List<Map<String, String>>

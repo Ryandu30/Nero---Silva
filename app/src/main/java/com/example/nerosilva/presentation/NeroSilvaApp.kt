@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -53,6 +54,8 @@ import com.example.nerosilva.presentation.screen.home.HomePage
 import com.example.nerosilva.presentation.screen.login.component.LoginPage
 import com.example.nerosilva.presentation.screen.login.LoginScreen
 import com.example.nerosilva.presentation.screen.login.component.RegisterPage
+import com.example.nerosilva.presentation.screen.notification.NotificationPage
+import com.example.nerosilva.presentation.screen.profile.ProfilePage
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -153,7 +156,7 @@ fun NeroSilvaApp(
             }
 
             composable(Screen.Notification.route) {
-                ChatbotPage(
+                NotificationPage(
                     modifier = modifier,
                     navController = navController
                 )
@@ -179,8 +182,39 @@ fun NeroSilvaApp(
                     navController = navController
                 )
             }
+
+            composable(Screen.Profile.route) {
+                ProfilePage(
+                    modifier = modifier,
+                    navController = navController
+                )
+            }
+
+            composable(Screen.Account.route) {
+                AccountInfoPage(
+                    modifier = modifier,
+                    navController = navController
+                )
+            }
+
+            composable(Screen.SecurityAndPrivacy.route) {
+                SecurityAndPrivacyPage(
+                    modifier = modifier,
+                    navController = navController
+                )
+            }
         }
     }
+}
+
+@Composable
+fun AccountInfoPage(modifier: Modifier, navController: NavHostController) {
+
+}
+
+@Composable
+fun SecurityAndPrivacyPage(modifier: Modifier, navController: NavHostController) {
+
 }
 
 @Composable
@@ -210,6 +244,11 @@ fun BottomBar(
                 title = stringResource(id = R.string.menu_chatbot),
                 icon = Icons.Default.Face,
                 screen = Screen.Chatbot
+            ),
+            NavigationItem(
+                title = stringResource(id = R.string.menu_profile),
+                icon = Icons.Default.Person,
+                screen = Screen.Profile
             )
         )
 

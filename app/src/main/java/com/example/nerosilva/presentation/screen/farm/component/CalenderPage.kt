@@ -1,63 +1,43 @@
 package com.example.nerosilva.presentation.screen.farm.component
 
-import android.os.Bundle
-import android.provider.CalendarContract.Colors
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.*
-
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-
-import com.example.nerosilva.R
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun CalendarPage(modifier: Modifier = Modifier, navController: NavController) {
     Column(
         modifier = Modifier
-            .fillMaxWidth() // Sesuaikan hanya lebar, bukan tinggi
-            .background(brush = Brush.verticalGradient(colors = listOf(Color(0xFFEAF5EB), Color.White)))
+            .fillMaxWidth()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFFEAF5EB),
+                        Color.White
+                    )
+                )
+            )
             .padding(16.dp)
     ) {
-        // Header bulan dan tahun
         CalendarHeader(month = "Oktober", year = "2024")
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-        // Grid kalender
         CalendarGrid()
     }
 }
@@ -66,7 +46,9 @@ fun CalendarPage(modifier: Modifier = Modifier, navController: NavController) {
 @Composable
 fun CalendarHeader(month: String, year: String) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -77,7 +59,7 @@ fun CalendarHeader(month: String, year: String) {
                 fontWeight = FontWeight.Bold
             )
         )
-        IconButton(onClick = { /* Handle dropdown */ }) {
+        IconButton(onClick = {  }) {
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
                 contentDescription = "Dropdown",
@@ -89,7 +71,7 @@ fun CalendarHeader(month: String, year: String) {
 
 @Composable
 fun CalendarGrid() {
-    val daysOfWeek = listOf("Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu")
+    val daysOfWeek = listOf("Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min")
     val calendarData = listOf(
         listOf("", "", "", "1", "2", "3", "4"),
         listOf("5", "6", "7", "8", "9", "10", "11"),
@@ -100,15 +82,17 @@ fun CalendarGrid() {
 
     // Header hari
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         daysOfWeek.forEach { day ->
             Text(
                 text = day,
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                 color = Color(0xFF004D40),
-                modifier = Modifier.weight(1f)
+                textAlign = TextAlign.Center
             )
         }
     }
@@ -116,10 +100,14 @@ fun CalendarGrid() {
     Spacer(modifier = Modifier.height(8.dp))
 
     // Grid tanggal
-    Column {
+    Column(
+        modifier = Modifier.padding(vertical = 8.dp)
+    ) {
         calendarData.forEach { week ->
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 week.forEach { date ->
@@ -130,7 +118,7 @@ fun CalendarGrid() {
                             .padding(4.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .background(
-                                if (date == "19") Color(0xFFE0F2F1) // Highlight untuk tanggal tertentu
+                                if (date == "19") Color(0xFFDFF7E9)
                                 else Color.White
                             ),
                         contentAlignment = Alignment.Center
@@ -138,55 +126,18 @@ fun CalendarGrid() {
                         if (date.isNotEmpty()) {
                             Text(
                                 text = date,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = Color(0xFF004D40)
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    color = Color(0xFF004D40),
+                                    fontWeight = if (date == "19") FontWeight.Bold else FontWeight.Normal
+                                )
                             )
-                            val events = mapOf(
-                                "10" to "Perawatan",
-                                "16" to "Perawatan",
-                                "19" to "Event Khusus",
-                                "30" to "Panen"
-                            )
-
-                            Box(
-                                modifier = Modifier
-                                    .aspectRatio(1f)
-                                    .padding(4.dp)
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(
-                                        if (events.containsKey(date)) {
-                                            Color(0xFFEAF5EB) // Warna khusus untuk tanggal dengan event
-                                        } else Color.White
-                                    )
-                                    .border(1.dp, Color(0xFFB0BEC5)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Text(
-                                        text = date,
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = Color(0xFF004D40)
-                                    )
-                                    events[date]?.let { event ->
-                                        Text(
-                                            text = event,
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = Color(0xFF004D40)
-                                        )
-                                    }
-                                }
-                            }
-
                         }
-
-
                     }
                 }
             }
         }
     }
 }
-
 
 @Composable
 fun DailyActivitySection() {
@@ -195,16 +146,14 @@ fun DailyActivitySection() {
             .fillMaxWidth()
             .padding(16.dp),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFEAF5EB) // Warna latar hijau muda
-        )
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFEAF5EB))
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Header: Ikon dan Teks "Kegiatan Harian"
+            // Header Ikon dan teks
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -212,7 +161,7 @@ fun DailyActivitySection() {
                     imageVector = Icons.Default.List,
                     contentDescription = "Kegiatan Harian",
                     modifier = Modifier.size(24.dp),
-                    tint = Color(0xFF66BB6A) // Warna ikon hijau
+                    tint = Color(0xFF66BB6A)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
@@ -224,7 +173,7 @@ fun DailyActivitySection() {
                 )
             }
 
-            // Konten utama: "Panen Hasil Perkebunan"
+            // Konten utama
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
@@ -243,7 +192,7 @@ fun DailyActivitySection() {
                         )
                     )
                     Text(
-                        text = "Selamat anda telah menyelesaikan perkebunan hidroponik dengan 100 tanaman Selada. Nikmati hasil panen Anda atau bisa Anda jual di marketplace.",
+                        text = "Selamat, Anda telah menyelesaikan perkebunan hidroponik dengan 100 tanaman Selada! Nikmati hasil panen Anda atau jual di marketplace.",
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = Color(0xFF004D40),
                             textAlign = TextAlign.Center
@@ -252,35 +201,31 @@ fun DailyActivitySection() {
                 }
             }
 
-            // Footer: Tombol "Mulai Berkebun Lagi"
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            // Tombol aksi
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "Mau berkebun lagi?\nAyo bikin rencana berkebun hidroponik.",
+                    text = "Mau berkebun lagi? Ayo bikin rencana berkebun hidroponik.",
                     style = MaterialTheme.typography.bodySmall.copy(
                         color = Color(0xFF004D40),
                         textAlign = TextAlign.Center
                     )
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                // Tombol seperti pada gambar
                 Button(
-                    onClick = { /* Handle button click */ },
+                    onClick = {  },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
-                        .height(45.dp), // Tinggi tombol sesuai
-                    shape = RoundedCornerShape(10.dp), // Membuat sisi lebih membulat
+                        .height(48.dp),
+                    shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF5C8D89), // Warna tombol
-                        contentColor = Color(0xFFFFFFFF) // Warna teks
+                        containerColor = Color(0xFF5C8D89),
+                        contentColor = Color.White
                     )
                 ) {
                     Text(
                         text = "Mulai Berkebun Lagi",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp // Menyesuaikan ukuran teks
+                            fontWeight = FontWeight.Bold
                         )
                     )
                 }
