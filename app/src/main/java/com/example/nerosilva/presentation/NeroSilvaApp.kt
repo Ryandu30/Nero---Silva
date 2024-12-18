@@ -40,16 +40,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.nerosilva.R
 import com.example.nerosilva.utils.shouldShowBottomBar
 import com.example.nerosilva.navigation.NavigationItem
 import com.example.nerosilva.navigation.Screen
 import com.example.nerosilva.presentation.screen.farm.FarmPage
 import com.example.nerosilva.presentation.screen.farm.component.CalendarPage
+import com.example.nerosilva.presentation.screen.farm.component.CalenderDetail
 import com.example.nerosilva.presentation.screen.farm.component.DetailPage
 import com.example.nerosilva.presentation.screen.home.HomePage
 import com.example.nerosilva.presentation.screen.login.component.LoginPage
@@ -212,14 +215,29 @@ fun NeroSilvaApp(
                     navController = navController
                 )
             }
+
+            composable(
+                route = "calender_detail/{date}",
+                arguments = listOf(navArgument("date") { type = NavType.StringType })
+            ) { backStackEntry ->
+                // Mengambil nilai parameter 'date' dari arguments
+                val date = backStackEntry.arguments?.getString("date") ?: ""
+
+                CalenderDetail(
+                    modifier = modifier,
+                    navController = navController,
+                    selectedDate = date
+                )
+            }
+
         }
     }
 }
 
-@Composable
-fun CalenderDetail(modifier: Modifier, navController: NavHostController) {
-
-}
+//@Composable
+//fun CalenderDetail(modifier: Modifier, navController: NavHostController) {
+//
+//}
 
 @Composable
 fun BottomBar(

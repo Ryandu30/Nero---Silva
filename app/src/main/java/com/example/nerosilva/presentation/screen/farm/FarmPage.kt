@@ -49,7 +49,7 @@ fun FarmPage(modifier: Modifier = Modifier, navController: NavController) {
         ) {
             CalendarSection(navController = navController)
             WeatherSection()
-            DailyActivitySection()
+            DailyActivitySection(navController)
         }
 }
 
@@ -257,7 +257,7 @@ fun WeatherSection() {
 
 
 @Composable
-fun DailyActivitySection() {
+fun DailyActivitySection(navController: NavController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -324,7 +324,7 @@ fun DailyActivitySection() {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        MulaiBerkebunButton(navController = rememberNavController()) // Panggil tombol
+                        MulaiBerkebunButton(navController) // Panggil tombol
                     }
                 }
             }
@@ -507,7 +507,7 @@ fun CheckboxWithLabel(label: String) {
 }
 
 @Composable
-fun MulaiBerkebunButton() {
+fun MulaiBerkebunButtons() {
     var showPopup1 by remember { mutableStateOf(false) }
     var showPopup2 by remember { mutableStateOf(false) }
 

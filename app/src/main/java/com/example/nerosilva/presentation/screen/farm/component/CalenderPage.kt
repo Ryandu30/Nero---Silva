@@ -129,9 +129,8 @@ fun CalendarGrid(navController: NavHostController) {
                                 if (date == "30") Color(0xFFDFF7E9)
                                 else Color.White
                             )
-                            .clickable(enabled = date == "30") {
-                                // Navigasi ke halaman lain
-                                navController.navigate("calender_detail")
+                            .clickable() {
+                                navController.navigate("calender_detail/$date")
                             },
                         contentAlignment = Alignment.Center
                     ) {

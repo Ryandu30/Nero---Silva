@@ -29,7 +29,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 
 @Composable
-fun CalenderDetail(modifier: Modifier = Modifier, navController: NavController) {
+fun CalenderDetail(modifier: Modifier = Modifier, navController: NavController, selectedDate: String? = "1") {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,7 +47,7 @@ fun CalenderDetail(modifier: Modifier = Modifier, navController: NavController) 
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        CalendarGrid1()
+        CalendarGrid1(selectedDate)
 
         Spacer(modifier = Modifier.height(12.dp))
         DailyActivity1()
@@ -82,7 +82,7 @@ fun CalendarTop(month: String, year: String) {
 }
 
 @Composable
-fun CalendarGrid1() {
+fun CalendarGrid1(selectedDate: String?) {
     val daysOfWeek = listOf("Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min")
     val calendarData = listOf(
         listOf("", "", "", "1", "2", "3", "4"),
@@ -130,7 +130,7 @@ fun CalendarGrid1() {
                             .padding(4.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .background(
-                                if (date == "19") Color(0xFFDFF7E9)
+                                if (date == selectedDate) Color(0xFFDFF7E9)
                                 else Color.White
                             ),
                         contentAlignment = Alignment.Center
