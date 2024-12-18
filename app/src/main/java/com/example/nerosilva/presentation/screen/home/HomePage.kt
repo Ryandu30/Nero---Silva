@@ -81,7 +81,7 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController) {
         )) { (title, imageResId) ->
             FundamentalCard(
                 title = title,
-                onMoreClick = { /* Tambahkan aksi */ },
+                onMoreClick = { navController.navigate(Screen.Detail.route) },
                 imageResId = imageResId
             )
         }
@@ -182,10 +182,10 @@ fun FundamentalCard(
                     )
                 )
                 // Tombol "Selengkapnya"
-                TextButton(onClick = onMoreClick) {
+                TextButton(onClick = { onMoreClick() }) {
                     Text(
                         text = "Selengkapnya >>",
-                        style = TextStyle (
+                        style = TextStyle(
                             color = Color(0xFF757575),
                             fontSize = 12.sp,
                             fontWeight = FontWeight(400),

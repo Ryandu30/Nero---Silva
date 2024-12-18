@@ -1,14 +1,18 @@
 package com.example.nerosilva.presentation.screen.farm.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -16,16 +20,16 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.example.nerosilva.navigation.Screen
-import com.example.nerosilva.presentation.screen.farm.MulaiBerkebunButton
+import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
 
 @Composable
-fun CalendarPage(modifier: Modifier = Modifier, navController: NavHostController) {
+fun CalenderDetail(modifier: Modifier = Modifier, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,20 +43,20 @@ fun CalendarPage(modifier: Modifier = Modifier, navController: NavHostController
             )
             .padding(16.dp)
     ) {
-        CalendarHeader(month = "Oktober", year = "2024")
+        CalendarTop(month = "Oktober", year = "2024")
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        CalendarGrid(navController)
+        CalendarGrid1()
 
         Spacer(modifier = Modifier.height(12.dp))
-
-        DailyActivity()
+        DailyActivity1()
     }
 }
 
+
 @Composable
-fun CalendarHeader(month: String, year: String) {
+fun CalendarTop(month: String, year: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -67,7 +71,7 @@ fun CalendarHeader(month: String, year: String) {
                 fontWeight = FontWeight.Bold
             )
         )
-        IconButton(onClick = { /* TODO: Add dropdown action */ }) {
+        IconButton(onClick = {  }) {
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
                 contentDescription = "Dropdown",
@@ -78,7 +82,7 @@ fun CalendarHeader(month: String, year: String) {
 }
 
 @Composable
-fun CalendarGrid(navController: NavHostController) {
+fun CalendarGrid1() {
     val daysOfWeek = listOf("Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min")
     val calendarData = listOf(
         listOf("", "", "", "1", "2", "3", "4"),
@@ -126,13 +130,9 @@ fun CalendarGrid(navController: NavHostController) {
                             .padding(4.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .background(
-                                if (date == "30") Color(0xFFDFF7E9)
+                                if (date == "19") Color(0xFFDFF7E9)
                                 else Color.White
-                            )
-                            .clickable(enabled = date == "30") {
-                                // Navigasi ke halaman lain
-                                navController.navigate("calender_detail")
-                            },
+                            ),
                         contentAlignment = Alignment.Center
                     ) {
                         if (date.isNotEmpty()) {
@@ -140,7 +140,7 @@ fun CalendarGrid(navController: NavHostController) {
                                 text = date,
                                 style = MaterialTheme.typography.bodyMedium.copy(
                                     color = Color(0xFF004D40),
-                                    fontWeight = if (date == "30") FontWeight.Bold else FontWeight.Normal
+                                    fontWeight = if (date == "19") FontWeight.Bold else FontWeight.Normal
                                 )
                             )
                         }
@@ -152,20 +152,19 @@ fun CalendarGrid(navController: NavHostController) {
 }
 
 @Composable
-fun DailyActivity() {
+fun DailyActivity1() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(30.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF4F9F4)) // Sesuai desain
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFEAF5EB))
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            // Header Section
+            // Header
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
@@ -173,46 +172,75 @@ fun DailyActivity() {
                 Icon(
                     imageVector = Icons.Default.List,
                     contentDescription = "Kegiatan Harian",
-                    tint = Color(0xFF5C8D89), // Warna ikon
-                    modifier = Modifier.size(28.dp)
+                    tint = Color(0xFF5C8D89)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Kegiatan Harian",
                     style = MaterialTheme.typography.titleMedium.copy(
-                        color = Color(0xFF212121), // Warna teks sesuai desain
+                        color = Color(0xFF004D40),
                         fontWeight = FontWeight.Bold
                     )
                 )
             }
 
-            // Card untuk Kegiatan
+            // Konten
             Card(
-                shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFFFFF)) // Putih sesuai desain
+                shape = RoundedCornerShape(12.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFDFF7E9))
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Kegiatan Hari Ini",
+                        text = "Panen Hasil Perkebunan",
                         style = TextStyle(
+                            color = Color(0xFF28C76F),
+                            fontWeight = FontWeight.Bold,
                             fontSize = 20.sp,
-                            fontWeight = FontWeight(400),
-                            color = Color(0xB217181D),
                         )
                     )
                     Text(
-                        text = "Membersihkan bagian yang mulai ditumbuhi lumut dengan menggunakan air bersih dan mengalir.",
+                        text = "Selamat anda telah menyelesaikan perkebunan hidroponik dengan 100 tanaman Selada. Nikmati hasil panen Anda atau bisa Anda jual di marketplace.",
                         style = TextStyle(
-                            fontSize = 16.sp,
+                            color = Color(0xFF28C76F),
+                            textAlign = TextAlign.Justify,
+                            fontSize = 14.sp,
                             lineHeight = 20.sp,
                             fontWeight = FontWeight(400),
-                            color = Color(0x9917181D),
                         )
                     )
+                }
+            }
+
+            // Footer
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Mau berkebun lagi?\nAyo bikin rencana berkebun hidroponik.",
+                    style = TextStyle(
+                        color = Color(0x9917181D),
+                        textAlign = TextAlign.Center,
+                        fontSize = 16.sp,
+                        lineHeight = 24.sp,
+                    )
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    onClick = { /* Action */ },
+                    modifier = Modifier.align(Alignment.CenterHorizontally), // Tombol berada di tengah
+                    shape = RoundedCornerShape(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF5C8D89),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text("Mulai Berkebun Lagi")
                 }
             }
         }

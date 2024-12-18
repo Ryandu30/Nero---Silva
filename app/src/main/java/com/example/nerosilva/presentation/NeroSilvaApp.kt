@@ -1,5 +1,6 @@
 package com.example.nerosilva.presentation.nerosilvaapp
 
+import AccountInfoPage
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
@@ -47,15 +48,16 @@ import com.example.nerosilva.R
 import com.example.nerosilva.utils.shouldShowBottomBar
 import com.example.nerosilva.navigation.NavigationItem
 import com.example.nerosilva.navigation.Screen
-import com.example.nerosilva.presentation.screen.chatbot.ChatbotPage
 import com.example.nerosilva.presentation.screen.farm.FarmPage
 import com.example.nerosilva.presentation.screen.farm.component.CalendarPage
+import com.example.nerosilva.presentation.screen.farm.component.DetailPage
 import com.example.nerosilva.presentation.screen.home.HomePage
 import com.example.nerosilva.presentation.screen.login.component.LoginPage
 import com.example.nerosilva.presentation.screen.login.LoginScreen
 import com.example.nerosilva.presentation.screen.login.component.RegisterPage
 import com.example.nerosilva.presentation.screen.notification.NotificationPage
 import com.example.nerosilva.presentation.screen.profile.ProfilePage
+import com.example.nerosilva.presentation.screen.profile.component.SecurityAndPrivacyPage
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -155,6 +157,13 @@ fun NeroSilvaApp(
                 )
             }
 
+            composable(Screen.Detail.route) {
+                DetailPage(
+                    modifier = modifier,
+                    navController = navController
+                )
+            }
+
             composable(Screen.Notification.route) {
                 NotificationPage(
                     modifier = modifier,
@@ -176,8 +185,8 @@ fun NeroSilvaApp(
                 )
             }
 
-            composable(Screen.Chatbot.route) {
-                ChatbotPage(
+            composable(Screen.CalenderDetail.route) {
+                CalenderDetail(
                     modifier = modifier,
                     navController = navController
                 )
@@ -208,12 +217,7 @@ fun NeroSilvaApp(
 }
 
 @Composable
-fun AccountInfoPage(modifier: Modifier, navController: NavHostController) {
-
-}
-
-@Composable
-fun SecurityAndPrivacyPage(modifier: Modifier, navController: NavHostController) {
+fun CalenderDetail(modifier: Modifier, navController: NavHostController) {
 
 }
 
@@ -239,11 +243,6 @@ fun BottomBar(
                 title = stringResource(id = R.string.menu_farm),
                 icon = Icons.Default.DateRange,
                 screen = Screen.Farm
-            ),
-            NavigationItem(
-                title = stringResource(id = R.string.menu_chatbot),
-                icon = Icons.Default.Face,
-                screen = Screen.Chatbot
             ),
             NavigationItem(
                 title = stringResource(id = R.string.menu_profile),

@@ -72,7 +72,9 @@ fun ProfilePage(modifier: Modifier = Modifier, navController: NavController) {
             },
             navigationIcon = {
                 IconButton(onClick = {
-                    navController.popBackStack()
+                    navController.navigate(Screen.Home.route) { // Navigasi ke homepage
+                        popUpTo("profile") { inclusive = true }
+                    }
                 }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
@@ -80,7 +82,8 @@ fun ProfilePage(modifier: Modifier = Modifier, navController: NavController) {
                         modifier = Modifier.size(35.dp)
                     )
                 }
-            })
+            }
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
